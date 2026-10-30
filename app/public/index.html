@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ai-assistant-bot</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="brand"><span>🤖 <span data-i18n="brand"></span></span><button id="tour-btn" type="button" data-i18n="tour"></button></div>
+    <button id="new-chat" class="primary big" data-i18n="newChat"></button>
+    <h2 class="side-title" data-i18n="history"></h2>
+    <ul id="conversations"></ul>
+    <div class="settings">
+      <div class="row">
+        <button id="font-down" aria-label="A-">A－</button>
+        <span id="font-label"></span>
+        <button id="font-up" aria-label="A+">A＋</button>
+      </div>
+      <div class="row">
+        <button id="theme-toggle"></button>
+        <button id="lang-toggle"></button>
+      </div>
+      <div id="meta" class="muted"></div>
+    </div>
+  </aside>
+
+  <main>
+    <section id="roles-bar">
+      <div class="roles-title" data-i18n="talkTo"></div>
+      <div id="roles" role="radiogroup"></div>
+      <div id="role-desc" class="muted"></div>
+      <div id="project-bar">
+        <span class="roles-title" data-i18n="projectLabel"></span>
+        <span id="project-current"></span>
+        <button id="project-btn" type="button" data-i18n="projectChange"></button>
+      </div>
+    </section>
+
+    <section id="messages" aria-live="polite"></section>
+
+    <form id="composer">
+      <textarea id="input" rows="3"></textarea>
+      <div class="actions">
+        <button id="send" class="primary big" type="submit" data-i18n="send"></button>
+        <button id="stop" class="danger big" type="button" data-i18n="stop" hidden></button>
+        <button id="save-spec" class="big" type="button" data-i18n="saveSpec"></button>
+        <button id="delete-chat" class="big" type="button" data-i18n="deleteChat"></button>
+        <span id="aic-info" aria-live="polite"></span>
+      </div>
+    </form>
+  </main>
+
+  <dialog id="dialog">
+    <form method="dialog">
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-text"></p>
+      <input id="dialog-input" type="text" />
+      <p id="dialog-hint" class="muted"></p>
+      <div class="actions">
+        <button value="cancel" class="big" data-i18n="cancel"></button>
+        <button value="ok" class="primary big" data-i18n="ok"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="project-dialog">
+    <h2 data-i18n="projectTitle"></h2>
+
+    <section id="project-recent-section">
+      <h3 data-i18n="projectRecent"></h3>
+      <div id="project-recent" class="chips"></div>
+    </section>
+
+    <section>
+      <h3 data-i18n="projectGithub"></h3>
+      <div class="row">
+        <input id="project-url" type="text" placeholder="https://github.com/owner/repo" />
+        <button id="project-url-use" type="button" class="primary" data-i18n="projectDownload"></button>
+      </div>
+      <p id="project-github-hint" class="muted"></p>
+    </section>
+
+    <section>
+      <h3 data-i18n="projectLocal"></h3>
+      <div class="row">
+        <input id="project-path" type="text" />
+        <button id="project-path-go" type="button" data-i18n="projectGo"></button>
+      </div>
+      <div id="fs-list"></div>
+      <button id="project-local-use" type="button" class="primary" data-i18n="projectUseFolder"></button>
+    </section>
+
+    <p id="project-status" role="status"></p>
+    <div class="actions">
+      <button id="project-close" type="button" data-i18n="cancel"></button>
+    </div>
+  </dialog>
+
+  <div id="tour" hidden>
+    <div id="tour-spot"></div>
+    <div id="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title">
+      <div id="tour-step" class="muted"></div>
+      <h2 id="tour-title"></h2>
+      <p id="tour-text"></p>
+      <div class="actions">
+        <button id="tour-skip" type="button" data-i18n="tourSkip"></button>
+        <span class="spacer"></span>
+        <button id="tour-prev" type="button" data-i18n="tourPrev"></button>
+        <button id="tour-next" type="button" class="primary"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "ai-assistant-bot",
+  "version": "0.1.0",
+  "description": "Local chat UI for the AI mobile team agents, powered by GitHub Copilot CLI",
+  "private": true,
+  "main": "server.js",
+  "bin": { "ai-assistant-bot": "bin/ai-assistant-bot" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=18" }
+}
