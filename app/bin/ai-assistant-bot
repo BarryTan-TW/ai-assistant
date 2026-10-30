@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Start ai-assistant-bot and open it in the default browser.
+set -euo pipefail
+
+APP_DIR="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
+PORT="${PORT:-4317}"
+URL="http://127.0.0.1:${PORT}"
+
+if ! command -v copilot >/dev/null 2>&1; then
+  echo "GitHub Copilot CLI ('copilot') not found in PATH. Install it and run 'copilot login' first." >&2
+  exit 1
+fi
+
+if curl -fsS "${URL}/api/agents" >/dev/null 2>&1; then
+  echo "ai-assistant-bot already running at ${URL}"
+else
+  PORT="$PORT" node "${APP_DIR}/server.js" &
+  SERVER_PID=$!
+  trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT INT TERM
+  for _ in $(seq 1 50); do
+    curl -fsS "${URL}/api/agents" >/dev/null 2>&1 && break
+    sleep 0.1
+  done
+fi
+
+xdg-open "$URL" >/dev/null 2>&1 || echo "Open ${URL} in your browser."
+
+if [[ -n "${SERVER_PID:-}" ]]; then
+  echo "Press Ctrl+C to stop."
+  wait "$SERVER_PID"
+fi
